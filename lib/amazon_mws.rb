@@ -37,17 +37,24 @@ end
 class AmazonMws
   require 'httparty'
 
-  def initialize(number, gateway:)
+  def initialize(number, gateway:, address_consent_token: nil)
     @number = number
     @gateway = gateway
+    @address_consent_token = address_consent_token
   end
 
 
   def fetch_order_data
-    AmazonMwsOrderResponse.new(process({
+    params = {
       "Action"=>"GetOrderReferenceDetails",
       "AmazonOrderReferenceId" => @number
-    }))
+    }
+    if @address_consent_token
+      params.merge!('AddressConsentToken' => @address_consent_token)
+    end
+    AmazonMwsOrderResponse.new(
+      process(params)
+    )
   end
 
   def set_order_data(total, currency)

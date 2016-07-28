@@ -23,7 +23,7 @@ describe Spree::Gateway::Amazon do
 
       gateway.credit(3000, nil, { originator: refund })
 
-      expect(mws).to have_received(:refund).with("CAPTURE_ID", payment.number, 30.0, "USD")
+      expect(mws).to have_received(:refund).with("CAPTURE_ID", /^#{payment.number}-\d+$/, 30.0, "USD")
     end
 
     let!(:refund) { create(:refund, payment: payment, amount: payment.amount) }

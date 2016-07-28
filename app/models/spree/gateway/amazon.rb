@@ -109,7 +109,7 @@ module Spree
       load_amazon_mws(amazon_transaction.order_reference)
       response = @mws.refund(
         amazon_transaction.capture_id,
-        payment.number,
+        "#{payment.number}-#{Time.now.to_i}",
         amount / 100.00,
         payment.currency
       )

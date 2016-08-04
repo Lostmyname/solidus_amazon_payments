@@ -39,7 +39,14 @@ class SpreeAmazon::Order
     end
   end
 
-  def set_order_reference_details(total)
+  def set_order_reference_details(total, options={})
+    options.assert_valid_keys(
+      :seller_note,
+      :seller_order_id,
+      :store_name,
+      :custom_information,
+    )
+
     mws.set_order_reference_details(total, options)
   end
 

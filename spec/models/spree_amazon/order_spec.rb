@@ -2,15 +2,7 @@ require 'spec_helper'
 
 describe SpreeAmazon::Order do
 
-  let!(:gateway) do
-    create(:amazon_gateway,
-      preferred_currency: 'USD',
-      preferred_client_id: '',
-      preferred_merchant_id: '',
-      preferred_aws_access_key_id: '',
-      preferred_aws_secret_access_key: '',
-    )
-  end
+  let!(:gateway) { create(:amazon_gateway) }
 
   describe '#fetch' do
     it "loads the order information from MWS" do

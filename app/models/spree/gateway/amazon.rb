@@ -8,7 +8,7 @@
 #
 ##
 module Spree
-  class Gateway::Amazon < Gateway
+  class Gateway::Amazon < Spree::PaymentMethod
     REGIONS = %w(us uk de jp).freeze
 
     preference :currency, :string, default: -> { Spree::Config.currency }
@@ -58,7 +58,7 @@ module Spree
       end
     end
 
-    def provider_class
+    def gateway_class
       AmazonTransaction
     end
 
